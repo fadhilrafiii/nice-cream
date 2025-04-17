@@ -24,7 +24,7 @@ export default function RootLayout({
         className={`${lobsterFont.variable} ${gilroyFont.variable} bg-tertiary antialiased`}
       >
         <Sidebar />
-        <div className="pl-20">
+        <div className="pt-32 md:pl-20">
           <Navbar />
           {children}
         </div>
