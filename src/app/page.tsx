@@ -1,15 +1,14 @@
 'use client';
 
-import { useRef } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 import Image from 'next/image';
 
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap-trial';
-import { ScrollSmoother } from 'gsap-trial/ScrollSmoother';
 import { ScrollTrigger } from 'gsap-trial/ScrollTrigger';
+import Lenis from 'lenis';
 
 import Button from '@/components/button.component';
-import Footer from '@/components/footer.component';
 
 import {
   ICE_CREAMS,
@@ -22,13 +21,10 @@ import SplashMaroon from '@/public/images/splash-maroon.png';
 import SplashRed from '@/public/images/splash-red.png';
 import StrawberryIceCream from '@/public/images/strawberry-icecream.png';
 
-import useLinkSmoothScroll from '@/hooks/use-link-smooth-scroll.hook';
-
-gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
   const containerRef = useRef(null);
-  const smootherRef = useRef<ScrollSmoother | null>(null);
   const movingIceCreamRef = useRef(null);
   const recipeRef = useRef(null);
   const splash1Ref = useRef(null);
@@ -38,15 +34,17 @@ export default function Home() {
   const splash2RefM = useRef(null);
   const splash3RefM = useRef(null);
 
-  useLinkSmoothScroll();
+  useLayoutEffect(() => {
+    const lenis = new Lenis({ duration: 4 });
+    const raf = (time: number = 0) => {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    };
+    raf();
+  }, []);
+
   useGSAP(
     () => {
-      smootherRef.current = ScrollSmoother.create({
-        content: '#content',
-        smooth: 2,
-        effects: true,
-      });
-
       // Start of recipe
       gsap.to(recipeRef.current, {
         autoAlpha: 1,
@@ -166,7 +164,7 @@ export default function Home() {
     <div ref={containerRef} id="content" className="overflow-x-hidden">
       <section
         id="hero"
-        className="relative mx-auto flex min-h-[calc(100vh-100px)] max-w-[1536px] flex-col flex-wrap items-center justify-center overflow-x-hidden px-[5vw] py-[10vh] pt-[calc(10vh+88px)] md:pl-[calc(5vw+80px)] lg:overflow-x-visible 2xl:!pl-[5vw]"
+        className="md:[calc(5vw+80px)] 2xl:![5vw] relative mx-auto flex min-h-[calc(100vh-100px)] max-w-[1536px] flex-col flex-wrap items-center justify-center overflow-x-hidden px-[5vw] py-[10vh] pt-[calc(10vh+88px)] lg:overflow-x-visible"
       >
         <h1 className="bg-primary text-textured-[url(/images/nice-snow.png)] text-center text-[14vw] leading-none font-black tracking-tighter md:text-[min(12vw,200px)]">
           YOUR{' '}
@@ -199,10 +197,13 @@ export default function Home() {
             className="drop-shadow-md"
           />
         </div>
+        <span className="absolute right-0 hidden rotate-90 animate-pulse text-secondary xl:inline-block">
+          SCROLL DOWN
+        </span>
       </section>
       <section
         id="featured"
-        className="mx-auto max-w-[1536px] px-[5vw] py-[6vh] md:pl-[calc(5vw+80px)] xl:py-[12vh] 2xl:!pl-[5vw]"
+        className="md:[calc(5vw+80px)] 2xl:![5vw] mx-auto max-w-[1536px] px-[5vw] py-[6vh] xl:py-[12vh]"
       >
         <div className="flex flex-wrap items-center justify-center gap-y-8">
           <div className="flex flex-grow basis-[300px] flex-col items-start gap-y-6">
@@ -274,7 +275,7 @@ export default function Home() {
       </section>
       <section
         id="ingredient"
-        className="mx-auto max-w-[1536px] px-[5vw] py-[6vh] md:pl-[calc(5vw+80px)] xl:pb-[12vh] 2xl:!pl-[5vw]"
+        className="md:[calc(5vw+80px)] 2xl:![5vw] mx-auto max-w-[1536px] px-[5vw] py-[6vh] xl:pb-[12vh]"
       >
         <h3 className="relative z-10 bg-primary text-textured-[url(/images/nice-snow.png)] text-center text-[min(16vw,240px)] !leading-[1] font-black tracking-tighter uppercase">
           DELICIOUS
@@ -386,7 +387,7 @@ export default function Home() {
       </section>
       <section
         id="variant"
-        className="mx-auto flex min-h-screen max-w-[1536px] flex-col items-center justify-center px-[5vw] py-[8vh] md:pl-[calc(5vw+80px)] 2xl:!pl-[5vw]"
+        className="md:[calc(5vw+80px)] 2xl:![5vw] mx-auto flex min-h-screen max-w-[1536px] flex-col items-center justify-center px-[5vw] py-[8vh]"
       >
         <div>
           <div className="flex flex-col items-center justify-center gap-y-8">
@@ -435,7 +436,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <Footer />
     </div>
   );
 }
