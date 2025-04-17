@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 
-import Footer from '@/components/footer.component';
 import Navbar from '@/components/navbar.component';
 import Sidebar from '@/components/sidebar.component';
 
@@ -25,10 +24,9 @@ export default function RootLayout({
         className={`${lobsterFont.variable} ${gilroyFont.variable} bg-tertiary antialiased`}
       >
         <Sidebar />
-        <div className="pt-32 md:pl-20">
+        <div className="relative">
           <Navbar />
           {children}
-          <Footer />
         </div>
       </body>
     </html>

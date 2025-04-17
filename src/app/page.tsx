@@ -1,6 +1,15 @@
+'use client';
+
+import { useRef } from 'react';
 import Image from 'next/image';
 
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap-trial';
+import { ScrollSmoother } from 'gsap-trial/ScrollSmoother';
+import { ScrollTrigger } from 'gsap-trial/ScrollTrigger';
+
 import Button from '@/components/button.component';
+import Footer from '@/components/footer.component';
 
 import {
   ICE_CREAMS,
@@ -13,12 +22,151 @@ import SplashMaroon from '@/public/images/splash-maroon.png';
 import SplashRed from '@/public/images/splash-red.png';
 import StrawberryIceCream from '@/public/images/strawberry-icecream.png';
 
+import useLinkSmoothScroll from '@/hooks/use-link-smooth-scroll.hook';
+
+gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+
 export default function Home() {
+  const containerRef = useRef(null);
+  const smootherRef = useRef<ScrollSmoother | null>(null);
+  const movingIceCreamRef = useRef(null);
+  const recipeRef = useRef(null);
+  const splash1Ref = useRef(null);
+  const splash2Ref = useRef(null);
+  const splash3Ref = useRef(null);
+  const splash1RefM = useRef(null);
+  const splash2RefM = useRef(null);
+  const splash3RefM = useRef(null);
+
+  useLinkSmoothScroll();
+  useGSAP(
+    () => {
+      smootherRef.current = ScrollSmoother.create({
+        content: '#content',
+        smooth: 2,
+        effects: true,
+      });
+
+      // Start of recipe
+      gsap.to(recipeRef.current, {
+        autoAlpha: 1,
+        duration: 2,
+        left: 0,
+        ease: 'power2.inOut',
+        scrollTrigger: {
+          trigger: recipeRef.current,
+          start: 'top bottom',
+          end: 'bottom top',
+          toggleActions: 'restart reverse restart reverse',
+        },
+      });
+      // End of recipe
+
+      // ========= Start of splash =========
+      gsap.to(splash1Ref.current, {
+        autoAlpha: 1,
+        duration: 0.75,
+        opacity: 100,
+        scrollTrigger: {
+          trigger: splash1Ref.current,
+          start: 'top bottom',
+          toggleActions: 'restart reverse restart reverse',
+        },
+      });
+      gsap.to(splash2Ref.current, {
+        autoAlpha: 1,
+        duration: 0.75,
+        opacity: 100,
+        scrollTrigger: {
+          trigger: splash2Ref.current,
+          start: 'top bottom',
+          toggleActions: 'restart reverse restart reverse',
+        },
+      });
+      gsap.to(splash3Ref.current, {
+        autoAlpha: 1,
+        duration: 0.75,
+        opacity: 100,
+        scrollTrigger: {
+          trigger: splash3Ref.current,
+          start: 'top bottom',
+          toggleActions: 'restart reverse restart reverse',
+        },
+      });
+      gsap.to(splash1RefM.current, {
+        autoAlpha: 1,
+        duration: 0.75,
+        opacity: 100,
+        scrollTrigger: {
+          trigger: '#ingredient',
+          start: 'top bottom',
+          toggleActions: 'restart reverse restart reverse',
+        },
+      });
+      gsap.to(splash2RefM.current, {
+        autoAlpha: 1,
+        duration: 0.75,
+        delay: 0.75,
+        opacity: 100,
+        scrollTrigger: {
+          trigger: '#ingredient',
+          start: 'top bottom',
+          toggleActions: 'restart reverse restart reverse',
+        },
+      });
+      gsap.to(splash3RefM.current, {
+        autoAlpha: 1,
+        duration: 0.75,
+        delay: 1.5,
+        opacity: 100,
+        scrollTrigger: {
+          trigger: '#ingredient',
+          start: 'top bottom',
+          toggleActions: 'restart reverse restart reverse',
+        },
+      });
+      // ========= End of splash ==========
+
+      // ========== START Ice Cream ============
+      const iceCreamTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: '#hero',
+          start: 'top top',
+          endTrigger: '#variant',
+          end: 'center 52%',
+          scrub: true,
+          pin: movingIceCreamRef.current,
+          anticipatePin: 1,
+        },
+      });
+
+      iceCreamTl.fromTo(
+        movingIceCreamRef.current,
+        { rotate: 24, scale: 1 },
+        {
+          rotate: 0,
+          scale: 0.9,
+          duration: 0.05,
+          transformOrigin: 'center center',
+        },
+      );
+
+      iceCreamTl.to(movingIceCreamRef.current, {
+        scale: 0.4,
+        delay: 0.2,
+        duration: 0.1,
+        transformOrigin: 'center center',
+      });
+      // ========== END of Ice Cream ============
+    },
+    { scope: containerRef },
+  );
+
   return (
-    <div className="mx-auto max-w-[1600px] overflow-x-hidden px-[5vw]">
+    <div ref={containerRef} id="content" className="overflow-x-hidden">
       <section
         id="hero"
-        className="relative flex min-h-[72vh] flex-col flex-wrap items-center justify-center py-[5vh]"
+        className="relative mx-auto flex min-h-[calc(100vh-100px)] max-w-[1536px] flex-col flex-wrap items-center justify-center overflow-x-hidden px-[5vw] pt-[calc(10vh+100px)] pb-[10vh] md:pl-[calc(5vw+80px)] lg:overflow-x-visible 2xl:!pl-[5vw]"
       >
         <h1 className="bg-primary text-textured-[url(/images/nice-snow.png)] text-center text-[14vw] leading-none font-black tracking-tighter md:text-[min(12vw,200px)]">
           YOUR{' '}
@@ -28,7 +176,20 @@ export default function Home() {
           <br />
           ICE CREAM
         </h1>
-        <div className="relative z-50 mx-auto !max-h-[640px] rotate-[24deg] xl:absolute">
+        <div
+          ref={movingIceCreamRef}
+          className="absolute z-50 mx-auto hidden !max-h-[640px] rotate-[24deg] xl:block"
+        >
+          <Image
+            src={StrawberryIceCream}
+            alt="Strawberry Ice Cream"
+            width={600}
+            height={600}
+            priority
+            className="drop-shadow-md"
+          />
+        </div>
+        <div className="xl relative z-50 mx-auto inline-block !max-h-[640px] rotate-[24deg] xl:hidden">
           <Image
             src={StrawberryIceCream}
             alt="Strawberry Ice Cream"
@@ -39,7 +200,10 @@ export default function Home() {
           />
         </div>
       </section>
-      <section id="featured" className="py-[6vh] xl:py-[12vh]">
+      <section
+        id="featured"
+        className="mx-auto max-w-[1536px] px-[5vw] py-[6vh] md:pl-[calc(5vw+80px)] xl:py-[12vh] 2xl:!pl-[5vw]"
+      >
         <div className="flex flex-wrap items-center justify-center gap-y-8">
           <div className="flex flex-grow basis-[300px] flex-col items-start gap-y-6">
             <div className="font-title text-sm tracking-wide text-secondary xl:text-2xl">
@@ -64,7 +228,7 @@ export default function Home() {
             </Button>
           </div>
           <div className="flex-grow basis-[480px]">
-            <div className="relative mx-auto flex-grow">
+            <div className="relative mx-auto flex-grow xl:invisible">
               <Image
                 src={StrawberryIceCream}
                 alt="Strawberry Ice Cream"
@@ -75,7 +239,10 @@ export default function Home() {
             </div>
           </div>
           <div className="flex-grow basis-[300px]">
-            <div className="mx-auto max-w-[420px] border border-stone-600 p-[1px]">
+            <div
+              ref={recipeRef}
+              className="relative left-full mx-auto max-w-[420px] border border-stone-600 p-[1px] opacity-0"
+            >
               <div className="flex h-full w-full flex-col gap-6 border-3 border-stone-600 p-6 xl:gap-9 xl:p-9">
                 {NUTRITION_FACTS.map((nutritionFact: NutritionFact, idx: number) => (
                   <div className="flex flex-col gap-1" key={nutritionFact.name}>
@@ -105,13 +272,19 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section id="ingredient" className="py-[6vh] xl:py-[12vh]">
+      <section
+        id="ingredient"
+        className="mx-auto max-w-[1536px] px-[5vw] py-[6vh] md:pl-[calc(5vw+80px)] xl:pb-[12vh] 2xl:!pl-[5vw]"
+      >
         <h3 className="bg-primary text-textured-[url(/images/nice-snow.png)] text-center text-[min(16vw,240px)] !leading-[1] font-black tracking-tighter uppercase">
           DELICIOUS
         </h3>
-        <div className="flex flex-wrap justify-center gap-y-6 pb-12 lg:gap-y-8">
+        <div className="0 relative flex flex-wrap justify-center gap-y-6 pb-12 lg:gap-y-8 xl:-top-20">
           <div className="order-2 flex-grow basis-[160px] xs:hidden xl:order-1 xl:block">
-            <div className="relative flex aspect-square flex-col items-center justify-center p-8 lg:p-12">
+            <div
+              ref={splash1Ref}
+              className="invisible relative flex aspect-square flex-col items-center justify-center p-8 opacity-0 lg:p-12"
+            >
               <Image
                 src={SplashMaroon}
                 alt="Splash Maroon"
@@ -127,7 +300,10 @@ export default function Home() {
                 </p>
               </div>
             </div>
-            <div className="relative aspect-square flex-col items-center justify-center p-8 lg:p-12 xl:left-1/2 xl:w-4/5">
+            <div
+              ref={splash3Ref}
+              className="invisible relative aspect-square flex-col items-center justify-center p-8 opacity-0 lg:p-12 xl:left-1/2 xl:w-4/5"
+            >
               <Image
                 src={SplashMaroon}
                 alt="Splash Maroon"
@@ -145,7 +321,7 @@ export default function Home() {
             </div>
           </div>
           <div className="order-1 flex-grow basis-[350px] xl:order-2">
-            <div className="relative mx-auto">
+            <div className="relative mx-auto xl:invisible">
               <Image
                 src={StrawberryIceCream}
                 alt="Strawberry Ice Cream"
@@ -156,7 +332,10 @@ export default function Home() {
             </div>
           </div>
           <div className="order-3 flex flex-grow basis-[160px] items-center xs:hidden xl:flex">
-            <div className="relative flex aspect-square flex-col items-center justify-center p-8 md:p-14 xl:-left-1/5">
+            <div
+              ref={splash2Ref}
+              className="invisible relative flex aspect-square flex-col items-center justify-center p-8 opacity-0 md:p-14 xl:-left-1/5"
+            >
               <Image src={SplashRed} alt="Splash Red" fill className="-z-1 w-full" />
               <div className="relative -top-1/5 left-1/8">
                 <div className="text-center font-semibold text-white underline md:text-xl 2xl:text-4xl">
@@ -170,7 +349,7 @@ export default function Home() {
           </div>
         </div>
         <div className="-m-[2vw] hidden items-center justify-between xs:flex xl:hidden">
-          <div className="relative flex aspect-square basis-1/3 flex-col items-center justify-center p-8 lg:p-12">
+          <div className="invisible relative flex aspect-square basis-1/3 flex-col items-center justify-center p-8 opacity-0 lg:p-12">
             <Image src={SplashRed} alt="Splash Red" fill className="-z-1 w-full" />
             <div className="relative -top-1/5 left-1/8">
               <div className="text-center font-semibold text-white underline md:text-xl 2xl:text-4xl">
@@ -181,7 +360,7 @@ export default function Home() {
               </p>
             </div>
           </div>
-          <div className="relative flex aspect-square basis-1/3 flex-col items-center justify-center p-8 lg:p-12">
+          <div className="invisible relative flex aspect-square basis-1/3 flex-col items-center justify-center p-8 opacity-0 lg:p-12">
             <Image src={SplashRed} alt="Splash Red" fill className="-z-1 w-full" />
             <div className="relative -top-1/5 left-1/8">
               <div className="text-center font-semibold text-white underline md:text-xl 2xl:text-4xl">
@@ -192,7 +371,7 @@ export default function Home() {
               </p>
             </div>
           </div>
-          <div className="relative flex aspect-square basis-1/3 flex-col items-center justify-center p-8 lg:p-12">
+          <div className="invisible relative flex aspect-square basis-1/3 flex-col items-center justify-center p-8 opacity-0 lg:p-12">
             <Image src={SplashRed} alt="Splash Red" fill className="-z-1 w-full" />
             <div className="relative -top-1/5 left-1/8">
               <div className="text-center font-semibold text-white underline md:text-xl 2xl:text-4xl">
@@ -207,7 +386,7 @@ export default function Home() {
       </section>
       <section
         id="variant"
-        className="mx-auto my-[8vh] flex max-w-[1600px] flex-col items-center justify-center"
+        className="mx-auto flex min-h-screen max-w-[1536px] flex-col items-center justify-center px-[5vw] py-[8vh] md:pl-[calc(5vw+80px)] 2xl:!pl-[5vw]"
       >
         <div>
           <div className="flex flex-col items-center justify-center gap-y-8">
@@ -226,7 +405,9 @@ export default function Home() {
                     key={ice.name}
                     className="flex min-w-[200px] basis-1/5 flex-col items-center px-2"
                   >
-                    <div className="flex flex-grow basis-[274px] flex-col items-end">
+                    <div
+                      className={`flex basis-[274px] flex-col items-end ${idx === 2 && 'xl:invisible'}`}
+                    >
                       <Image
                         src={ice.img}
                         alt={ice.name}
@@ -254,6 +435,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      <Footer />
     </div>
   );
 }
