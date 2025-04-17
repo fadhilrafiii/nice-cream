@@ -166,7 +166,7 @@ export default function Home() {
     <div ref={containerRef} id="content" className="overflow-x-hidden">
       <section
         id="hero"
-        className="relative mx-auto flex min-h-[calc(100vh-100px)] max-w-[1536px] flex-col flex-wrap items-center justify-center overflow-x-hidden px-[5vw] pt-[calc(10vh+100px)] pb-[10vh] md:pl-[calc(5vw+80px)] lg:overflow-x-visible 2xl:!pl-[5vw]"
+        className="relative mx-auto flex min-h-[calc(100vh-100px)] max-w-[1536px] flex-col flex-wrap items-center justify-center overflow-x-hidden px-[5vw] py-[10vh] pt-[calc(10vh+88px)] md:pl-[calc(5vw+80px)] lg:overflow-x-visible 2xl:!pl-[5vw]"
       >
         <h1 className="bg-primary text-textured-[url(/images/nice-snow.png)] text-center text-[14vw] leading-none font-black tracking-tighter md:text-[min(12vw,200px)]">
           YOUR{' '}
@@ -238,7 +238,7 @@ export default function Home() {
               />
             </div>
           </div>
-          <div className="flex-grow basis-[300px]">
+          <div className="flex-grow basis-[300px] overflow-hidden">
             <div
               ref={recipeRef}
               className="relative left-full mx-auto max-w-[420px] border border-stone-600 p-[1px] opacity-0"
@@ -276,7 +276,7 @@ export default function Home() {
         id="ingredient"
         className="mx-auto max-w-[1536px] px-[5vw] py-[6vh] md:pl-[calc(5vw+80px)] xl:pb-[12vh] 2xl:!pl-[5vw]"
       >
-        <h3 className="bg-primary text-textured-[url(/images/nice-snow.png)] text-center text-[min(16vw,240px)] !leading-[1] font-black tracking-tighter uppercase">
+        <h3 className="relative z-10 bg-primary text-textured-[url(/images/nice-snow.png)] text-center text-[min(16vw,240px)] !leading-[1] font-black tracking-tighter uppercase">
           DELICIOUS
         </h3>
         <div className="0 relative flex flex-wrap justify-center gap-y-6 pb-12 lg:gap-y-8 xl:-top-20">

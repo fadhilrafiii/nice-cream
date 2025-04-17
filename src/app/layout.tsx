@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 
+import Alert from '@/components/alert.component';
 import Navbar from '@/components/navbar.component';
 import Sidebar from '@/components/sidebar.component';
 
@@ -28,6 +29,14 @@ export default function RootLayout({
           <Navbar />
           {children}
         </div>
+        <Alert>
+          <div>
+            <div className="text-lg font-semibold text-white">Recommendation</div>
+            <p className="text-sm font-medium text-white">
+              Open this page in desktop for better experience.
+            </p>
+          </div>
+        </Alert>
       </body>
     </html>
   );
