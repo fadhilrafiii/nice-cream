@@ -2,6 +2,10 @@ import Image from 'next/image';
 
 import Button from '@/components/button.component';
 
+import { NUTRITION_FACTS, NutritionFact } from '@/constants/content.constant';
+
+import SplashMaroon from '@/public/images/splash-maroon.png';
+import SplashRed from '@/public/images/splash-red.png';
 import StrawberryIceCream from '@/public/images/strawberry-icecream.png';
 
 export default function Home() {
@@ -19,14 +23,14 @@ export default function Home() {
           <br />
           ICE CREAM
         </h1>
-        <div className="relative z-50 mx-auto rotate-[24deg] xl:absolute">
+        <div className="relative z-50 mx-auto !max-h-[640px] rotate-[24deg] xl:absolute">
           <Image
             src={StrawberryIceCream}
             alt="Strawberry Ice Cream"
-            width={640}
-            height={640}
+            width={600}
+            height={600}
             priority
-            className="max-h-[640px] w-full max-w-[640px] drop-shadow-md"
+            className="drop-shadow-md"
           />
         </div>
       </section>
@@ -59,70 +63,139 @@ export default function Home() {
               <Image
                 src={StrawberryIceCream}
                 alt="Strawberry Ice Cream"
-                width={640}
-                height={640}
+                width={600}
+                height={600}
                 className="mx-auto object-contain drop-shadow-md"
               />
             </div>
           </div>
           <div className="flex-grow basis-[300px]">
             <div className="mx-auto max-w-[420px] border border-stone-600 p-[1px]">
-              <div className="left-full flex h-full w-full flex-col gap-6 border-3 border-stone-600 p-6 xl:gap-9 xl:p-9">
-                <div className="flex flex-col gap-1">
-                  <div>
-                    <div className="font-bold text-stone-700 2xl:!text-3xl">Calories</div>
-                    <div className="text-[10px] font-medium text-stone-700 2xl:!text-lg">
-                      per Serving
+              <div className="flex h-full w-full flex-col gap-6 border-3 border-stone-600 p-6 xl:gap-9 xl:p-9">
+                {NUTRITION_FACTS.map((nutritionFact: NutritionFact, idx: number) => (
+                  <div className="flex flex-col gap-1" key={nutritionFact.name}>
+                    <div>
+                      <div className="text-xl font-bold text-stone-700 2xl:!text-3xl">
+                        {nutritionFact.name}
+                      </div>
+                      <div className="text-xs font-medium text-stone-700 2xl:!text-lg">
+                        {nutritionFact.subName}
+                      </div>
+                    </div>
+                    <hr className="mb-2 h-[2px] bg-stone-700" />
+                    <div className="flex flex-wrap items-center gap-x-4">
+                      <div
+                        className={`min-w-[80px] basis-[80px] ${idx === 0 ? 'text-4xl' : 'text-5xl'} font-black tracking-tighter text-stone-700 2xl:!min-w-32 2xl:!text-6xl`}
+                      >
+                        {nutritionFact.value}
+                      </div>
+                      <p className="flex-grow basis-[117px] text-xs font-medium text-stone-700 2xl:!text-base">
+                        {nutritionFact.desc}
+                      </p>
                     </div>
                   </div>
-                  <hr className="mb-2 h-[2px] bg-stone-700" />
-                  <div className="flex flex-wrap items-center gap-x-4">
-                    <div className="min-w-[80px] basis-[80px] text-4xl font-black tracking-tighter text-stone-700 2xl:!min-w-32 2xl:!text-5xl">
-                      200g
-                    </div>
-                    <p className="flex-grow basis-[117px] text-xs font-medium text-stone-700 2xl:!text-base">
-                      It is lesser than normal ice cream. It tastes good and gives energy,
-                      but won&apos;t make you fat.
-                    </p>
-                  </div>
-                </div>
-                <div className="flex flex-col gap-1">
-                  <div>
-                    <div className="font-bold text-stone-700 2xl:!text-3xl">Fat</div>
-                    <div className="text-[10px] font-medium text-stone-700 2xl:!text-lg">
-                      per Serving
-                    </div>
-                  </div>
-                  <hr className="mb-2 h-[2px] bg-stone-700" />
-                  <div className="flex flex-wrap items-center gap-x-4">
-                    <div className="min-w-[80px] basis-[80px] text-5xl font-black tracking-tighter text-stone-700 2xl:!min-w-32 2xl:!text-6xl">
-                      7.6%
-                    </div>
-                    <p className="flex-grow basis-[117px] text-xs font-medium text-stone-700 2xl:!text-base">
-                      Normal ice cream will give you more than 10% fat on each serving.
-                      Lower fat will make you stay slim and healthy
-                    </p>
-                  </div>
-                </div>
-                <div className="flex flex-col gap-1">
-                  <div>
-                    <div className="font-bold text-stone-700 2xl:!text-3xl">Protein</div>
-                    <div className="text-[10px] font-medium text-stone-700 2xl:!text-lg">
-                      Compare than normal
-                    </div>
-                  </div>
-                  <hr className="mb-2 h-[2px] bg-stone-700" />
-                  <div className="flex flex-wrap items-center gap-x-4">
-                    <div className="min-w-[80px] basis-[80px] text-5xl font-black tracking-tighter text-stone-700 2xl:!min-w-32 2xl:!text-6xl">
-                      20%
-                    </div>
-                    <p className="flex-grow basis-[117px] text-xs font-medium text-stone-700 2xl:!text-base">
-                      Have 20% higher protein from oat milk and soy milk. Eating this ice
-                      cream helps you build your muscle
-                    </p>
-                  </div>
-                </div>
+                ))}
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="ingredient" className="py-[6vh] xl:py-[12vh]">
+        <h3 className="bg-primary text-textured-[url(/images/nice-snow.png)] text-center font-text text-[min(16vw,240px)] !leading-[1] font-black tracking-tighter uppercase">
+          DELICIOUS
+        </h3>
+        <div className="flex flex-wrap justify-center gap-y-6 pb-12 lg:gap-y-8">
+          <div className="order-2 flex-grow basis-[180px] xs:hidden xl:order-1 xl:block">
+            <div className="relative flex aspect-square flex-col items-center justify-center p-12">
+              <Image
+                src={SplashMaroon}
+                alt="Splash Maroon"
+                fill
+                className="-z-1 w-full"
+              />
+              <div className="relative -top-1/5 left-1/8">
+                <div className="text-center text-lg font-semibold text-white underline md:text-2xl 2xl:text-4xl">
+                  Oat Milk
+                </div>
+                <p className="mt-2 text-center text-xs font-medium text-white md:text-base 2xl:text-xl">
+                  High protein to maintain your body muscle.
+                </p>
+              </div>
+            </div>
+            <div className="relative aspect-square flex-col items-center justify-center p-12 xl:left-1/2 xl:w-4/5">
+              <Image
+                src={SplashMaroon}
+                alt="Splash Maroon"
+                fill
+                className="-z-1 w-full"
+              />
+              <div className="relative -top-[0.3vw] left-1/8">
+                <div className="text-center text-lg font-semibold text-white underline md:text-2xl 2xl:text-4xl">
+                  Soy Milk
+                </div>
+                <p className="mt-2 text-center text-xs font-medium text-white md:text-base 2xl:text-xl">
+                  High dietary fiber and high protein for your body.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="order-1 flex-grow basis-[375px] xl:order-2">
+            <div className="relative mx-auto">
+              <Image
+                src={StrawberryIceCream}
+                alt="Strawberry Ice Cream"
+                width={540}
+                height={540}
+                className="xl: mx-auto drop-shadow-md"
+              />
+            </div>
+          </div>
+          <div className="order-3 flex flex-grow basis-[180px] items-center xs:hidden xl:flex">
+            <div className="relative flex aspect-square flex-col items-center justify-center p-14 xl:-left-1/5">
+              <Image src={SplashRed} alt="Splash Red" fill className="-z-1 w-full" />
+              <div className="relative -top-1/5 left-1/8">
+                <div className="text-center text-lg font-semibold text-white underline md:text-2xl 2xl:text-4xl">
+                  Dates
+                </div>
+                <p className="mt-2 text-center text-xs font-medium text-white md:text-base 2xl:text-xl">
+                  Dates used to make your ice cream feels sweet.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="-m-[2vw] hidden items-center justify-between xs:flex xl:hidden">
+          <div className="relative flex aspect-square basis-1/3 flex-col items-center justify-center p-12">
+            <Image src={SplashRed} alt="Splash Red" fill className="-z-1 w-full" />
+            <div className="relative -top-1/5 left-1/8">
+              <div className="text-center text-lg font-semibold text-white underline md:text-2xl 2xl:text-4xl">
+                Oat Milk
+              </div>
+              <p className="mt-2 text-center text-xs font-medium text-white md:text-base 2xl:text-xl">
+                High protein to maintain your body muscle.
+              </p>
+            </div>
+          </div>
+          <div className="relative flex aspect-square basis-1/3 flex-col items-center justify-center p-12">
+            <Image src={SplashRed} alt="Splash Red" fill className="-z-1 w-full" />
+            <div className="relative -top-1/5 left-1/8">
+              <div className="text-center text-lg font-semibold text-white underline md:text-2xl 2xl:text-4xl">
+                Soy Milk
+              </div>
+              <p className="mt-2 text-center text-xs font-medium text-white md:text-base 2xl:text-xl">
+                High dietary fiber and high protein for your body.
+              </p>
+            </div>
+          </div>
+          <div className="relative flex aspect-square basis-1/3 flex-col items-center justify-center p-12">
+            <Image src={SplashRed} alt="Splash Red" fill className="-z-1 w-full" />
+            <div className="relative -top-1/5 left-1/8">
+              <div className="text-center text-lg font-semibold text-white underline md:text-2xl 2xl:text-4xl">
+                Dates
+              </div>
+              <p className="mt-2 text-center text-xs font-medium text-white md:text-base 2xl:text-xl">
+                Dates used to make your ice cream feels sweet.
+              </p>
             </div>
           </div>
         </div>
