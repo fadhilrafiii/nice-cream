@@ -2,7 +2,12 @@ import Image from 'next/image';
 
 import Button from '@/components/button.component';
 
-import { NUTRITION_FACTS, NutritionFact } from '@/constants/content.constant';
+import {
+  ICE_CREAMS,
+  IceCream,
+  NUTRITION_FACTS,
+  NutritionFact,
+} from '@/constants/content.constant';
 
 import SplashMaroon from '@/public/images/splash-maroon.png';
 import SplashRed from '@/public/images/splash-red.png';
@@ -101,12 +106,12 @@ export default function Home() {
         </div>
       </section>
       <section id="ingredient" className="py-[6vh] xl:py-[12vh]">
-        <h3 className="bg-primary text-textured-[url(/images/nice-snow.png)] text-center font-text text-[min(16vw,240px)] !leading-[1] font-black tracking-tighter uppercase">
+        <h3 className="bg-primary text-textured-[url(/images/nice-snow.png)] text-center text-[min(16vw,240px)] !leading-[1] font-black tracking-tighter uppercase">
           DELICIOUS
         </h3>
         <div className="flex flex-wrap justify-center gap-y-6 pb-12 lg:gap-y-8">
-          <div className="order-2 flex-grow basis-[180px] xs:hidden xl:order-1 xl:block">
-            <div className="relative flex aspect-square flex-col items-center justify-center p-12">
+          <div className="order-2 flex-grow basis-[160px] xs:hidden xl:order-1 xl:block">
+            <div className="relative flex aspect-square flex-col items-center justify-center p-8 lg:p-12">
               <Image
                 src={SplashMaroon}
                 alt="Splash Maroon"
@@ -114,7 +119,7 @@ export default function Home() {
                 className="-z-1 w-full"
               />
               <div className="relative -top-1/5 left-1/8">
-                <div className="text-center text-lg font-semibold text-white underline md:text-2xl 2xl:text-4xl">
+                <div className="text-center font-semibold text-white underline md:text-xl 2xl:text-4xl">
                   Oat Milk
                 </div>
                 <p className="mt-2 text-center text-xs font-medium text-white md:text-base 2xl:text-xl">
@@ -122,15 +127,15 @@ export default function Home() {
                 </p>
               </div>
             </div>
-            <div className="relative aspect-square flex-col items-center justify-center p-12 xl:left-1/2 xl:w-4/5">
+            <div className="relative aspect-square flex-col items-center justify-center p-8 lg:p-12 xl:left-1/2 xl:w-4/5">
               <Image
                 src={SplashMaroon}
                 alt="Splash Maroon"
                 fill
                 className="-z-1 w-full"
               />
-              <div className="relative -top-[0.3vw] left-1/8">
-                <div className="text-center text-lg font-semibold text-white underline md:text-2xl 2xl:text-4xl">
+              <div className="relative -top-1/7 left-1/8 md:-top-[0.3vw]">
+                <div className="text-center font-semibold text-white underline md:text-xl 2xl:text-4xl">
                   Soy Milk
                 </div>
                 <p className="mt-2 text-center text-xs font-medium text-white md:text-base 2xl:text-xl">
@@ -139,7 +144,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="order-1 flex-grow basis-[375px] xl:order-2">
+          <div className="order-1 flex-grow basis-[350px] xl:order-2">
             <div className="relative mx-auto">
               <Image
                 src={StrawberryIceCream}
@@ -150,11 +155,11 @@ export default function Home() {
               />
             </div>
           </div>
-          <div className="order-3 flex flex-grow basis-[180px] items-center xs:hidden xl:flex">
-            <div className="relative flex aspect-square flex-col items-center justify-center p-14 xl:-left-1/5">
+          <div className="order-3 flex flex-grow basis-[160px] items-center xs:hidden xl:flex">
+            <div className="relative flex aspect-square flex-col items-center justify-center p-8 md:p-14 xl:-left-1/5">
               <Image src={SplashRed} alt="Splash Red" fill className="-z-1 w-full" />
               <div className="relative -top-1/5 left-1/8">
-                <div className="text-center text-lg font-semibold text-white underline md:text-2xl 2xl:text-4xl">
+                <div className="text-center font-semibold text-white underline md:text-xl 2xl:text-4xl">
                   Dates
                 </div>
                 <p className="mt-2 text-center text-xs font-medium text-white md:text-base 2xl:text-xl">
@@ -165,10 +170,10 @@ export default function Home() {
           </div>
         </div>
         <div className="-m-[2vw] hidden items-center justify-between xs:flex xl:hidden">
-          <div className="relative flex aspect-square basis-1/3 flex-col items-center justify-center p-12">
+          <div className="relative flex aspect-square basis-1/3 flex-col items-center justify-center p-8 lg:p-12">
             <Image src={SplashRed} alt="Splash Red" fill className="-z-1 w-full" />
             <div className="relative -top-1/5 left-1/8">
-              <div className="text-center text-lg font-semibold text-white underline md:text-2xl 2xl:text-4xl">
+              <div className="text-center font-semibold text-white underline md:text-xl 2xl:text-4xl">
                 Oat Milk
               </div>
               <p className="mt-2 text-center text-xs font-medium text-white md:text-base 2xl:text-xl">
@@ -176,10 +181,10 @@ export default function Home() {
               </p>
             </div>
           </div>
-          <div className="relative flex aspect-square basis-1/3 flex-col items-center justify-center p-12">
+          <div className="relative flex aspect-square basis-1/3 flex-col items-center justify-center p-8 lg:p-12">
             <Image src={SplashRed} alt="Splash Red" fill className="-z-1 w-full" />
             <div className="relative -top-1/5 left-1/8">
-              <div className="text-center text-lg font-semibold text-white underline md:text-2xl 2xl:text-4xl">
+              <div className="text-center font-semibold text-white underline md:text-xl 2xl:text-4xl">
                 Soy Milk
               </div>
               <p className="mt-2 text-center text-xs font-medium text-white md:text-base 2xl:text-xl">
@@ -187,16 +192,65 @@ export default function Home() {
               </p>
             </div>
           </div>
-          <div className="relative flex aspect-square basis-1/3 flex-col items-center justify-center p-12">
+          <div className="relative flex aspect-square basis-1/3 flex-col items-center justify-center p-8 lg:p-12">
             <Image src={SplashRed} alt="Splash Red" fill className="-z-1 w-full" />
             <div className="relative -top-1/5 left-1/8">
-              <div className="text-center text-lg font-semibold text-white underline md:text-2xl 2xl:text-4xl">
+              <div className="text-center font-semibold text-white underline md:text-xl 2xl:text-4xl">
                 Dates
               </div>
               <p className="mt-2 text-center text-xs font-medium text-white md:text-base 2xl:text-xl">
                 Dates used to make your ice cream feels sweet.
               </p>
             </div>
+          </div>
+        </div>
+      </section>
+      <section
+        id="variant"
+        className="mx-auto my-[8vh] flex max-w-[1600px] flex-col items-center justify-center"
+      >
+        <div>
+          <div className="flex flex-col items-center justify-center gap-y-8">
+            <div>
+              <div className="mb-2 text-center font-title text-xl text-secondary xl:text-3xl">
+                Look at our
+              </div>
+              <h4 className="bg-secondary text-textured-[url(/images/nice-snow.png)] text-center text-6xl font-black tracking-tighter uppercase md:text-8xl">
+                VARIANT
+              </h4>
+            </div>
+            <div className="flex w-full flex-wrap justify-center">
+              {ICE_CREAMS.map((ice: IceCream, idx: number) => {
+                return (
+                  <div
+                    key={ice.name}
+                    className="flex min-w-[200px] basis-1/5 flex-col items-center px-2"
+                  >
+                    <div className="flex flex-grow basis-[274px] flex-col items-end">
+                      <Image
+                        src={ice.img}
+                        alt={ice.name}
+                        width={400}
+                        className="flex-grow object-contain drop-shadow-md"
+                      />
+                    </div>
+                    <div className="basis-[72px]">
+                      <div className="text-center font-title text-base font-semibold text-secondary md:text-lg 2xl:!text-2xl 2xl:!text-3xl">
+                        {ice.name}
+                      </div>
+                      <p className="text-center text-xs font-medium text-secondary md:text-sm xl:text-lg 2xl:text-2xl">
+                        {ice.desc}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+          <div className="flex justify-center pt-[5vh]">
+            <Button type="link" href="/">
+              Buy Now!
+            </Button>
           </div>
         </div>
       </section>
